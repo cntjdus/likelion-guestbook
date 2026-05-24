@@ -64,6 +64,14 @@ function App() {
          <RecentReviews reviews={recentReviews} />
         </aside>
       </main>
+
+      <footer className="footer">
+        <p>
+          Designed by Seoyeon Chu / Developed by Seoyeon Chu, Yeeun Cha
+        </p>
+        <p>Likelion CAU 14th. All Rights Reserved.</p>
+      </footer>
+
     </div>
   );
 }
