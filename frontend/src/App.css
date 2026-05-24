@@ -52,17 +52,17 @@ button {
 }
 
 .repo-icon,
-.repo-slash {
+.slash {
   color: #8b949e;
 }
 
-.repo-owner {
+.owner {
   color: #58a6ff;
   font-size: 22px;
   font-weight: 400;
 }
 
-.repo-slash {
+.slash {
   color: #8b949e;
   font-size: 22px;
   font-weight: 400;
@@ -72,7 +72,7 @@ button {
 .repo-name {
   color: #f0f6fc;
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .public-badge {
