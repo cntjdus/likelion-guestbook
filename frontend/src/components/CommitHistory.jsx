@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CommitForm from "./CommitForm";
 import CommitDetail from "./CommitDetail";
+import { MessageSquare, GitBranch, RotateCcw } from "lucide-react";
 
 function CommitHistory({
   commits,
@@ -78,7 +79,9 @@ function CommitHistory({
           {commits.map((commit) => (
             <article className="commit-item github-commit-card" key={commit.id}>
               <div className="commit-left">
-                <span className="commit-branch-icon">⌁</span>
+                <span className="commit-branch-icon">
+                    <GitBranch size={16} />
+                </span>
 
                 <div>
                   <strong className="commit-message">{commit.message}</strong>
@@ -99,18 +102,20 @@ function CommitHistory({
                 type="button"
                 onClick={() => handleRevert(commit)}
               >
-                ↻ Revert
+                <RotateCcw size={14} />
+                Revert
               </button>
 
               <button
                 className="comment-count-btn"
                 type="button"
                 onClick={() => {
-                  setSelectedCommitId(commit.id);
-                  onDetailChange(true);
+                    setSelectedCommitId(commit.id);
+                    onDetailChange(true);
                 }}
               >
-                ▢ {commit.reviews.length}
+                <MessageSquare size={16} />
+                {commit.reviews.length}
               </button>
             </article>
           ))}

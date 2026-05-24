@@ -687,3 +687,268 @@ button {
 .main-layout:not(.detail-mode) .recent-area {
   grid-column: 2 / 3;
 }
+
+/* Commit card final override */
+
+.commit-list {
+  margin-top: 20px;
+}
+
+.commit-item.github-commit-card {
+  position: relative;
+  display: block;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 18px 24px;
+  min-height: 120px;
+  margin-bottom: 12px;
+}
+
+.commit-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.commit-branch-icon {
+  color: #3fb950;
+  font-size: 18px;
+  line-height: 1;
+  margin-top: 4px;
+}
+
+.commit-message {
+  display: block;
+  color: #58a6ff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.commit-description {
+  margin: 0 0 12px;
+  color: #c9d1d9;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.commit-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.commit-meta strong {
+  color: #f0f6fc;
+  font-weight: 600;
+}
+
+.commit-meta span {
+  display: inline;
+  margin-top: 0;
+  color: #8b949e;
+}
+
+.revert-btn {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  background: transparent;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-size: 14px;
+}
+
+.revert-btn:hover {
+  background: #21262d;
+}
+
+.comment-count-btn {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+  border: none;
+  background: transparent;
+  color: #79c0ff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+/* commit card exact fix */
+
+.commit-item.github-commit-card {
+  position: relative;
+  display: block !important;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 20px 24px;
+  min-height: 125px;
+}
+
+.commit-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.commit-left > div {
+  display: block;
+}
+
+.commit-branch-icon {
+  color: #3fb950;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.commit-branch-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.commit-message {
+  display: block;
+  color: #58a6ff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+
+.commit-description {
+  margin: 0 0 14px;
+  color: #c9d1d9;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.commit-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b949e;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.commit-meta strong {
+  color: #f0f6fc;
+  font-weight: 600;
+}
+
+.commit-meta span {
+  display: inline !important;
+  margin: 0 !important;
+  color: #8b949e;
+}
+
+.revert-btn {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: transparent !important;
+  color: #c9d1d9 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 8px;
+
+  padding: 7px 12px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.revert-btn:hover {
+  background: #21262d !important;
+}
+
+.revert-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.comment-count-btn {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: transparent !important;
+  border: none !important;
+  color: #79c0ff !important;
+
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.comment-count-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.revert-btn {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: transparent !important;
+  color: #c9d1d9 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 8px;
+
+  padding: 7px 12px;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: none !important;
+  appearance: none;
+}
+
+.revert-btn:hover {
+  background-color: #21262d !important;
+}
+
+.comment-count-btn {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: transparent !important;
+  color: #79c0ff !important;
+  border: none !important;
+
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+  box-shadow: none !important;
+  appearance: none;
+}
+
+.comment-count-btn:hover {
+  background-color: transparent !important;
+}
