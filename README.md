@@ -1,1 +1,1 @@
-# guestbook-likelion
+# likelion-guestbook
