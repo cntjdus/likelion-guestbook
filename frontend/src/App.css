@@ -394,9 +394,15 @@ button {
 
 .stat-row {
   display: flex;
+  align-items: center;
+  gap: 10px;
   justify-content: space-between;
   color: #8b949e;
   margin: 14px 0;
+}
+
+.stat-row span svg {
+  margin-right: 10px;
 }
 
 .stat-row strong {
