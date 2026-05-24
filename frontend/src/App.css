@@ -669,37 +669,47 @@ button {
 }
 
 /* Recent Reviews */
-
 .recent-review-card h2 {
-  margin-top: 0;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0px;
+  font-size: 17px;
 }
 
-.recent-empty {
-  color: #8b949e;
+.recent-review-card h2 svg {
+  color: #c9d1d9;
 }
 
 .recent-review-item {
   display: flex;
+  align-items: flex-start;
   gap: 12px;
-  margin-top: 20px;
-  color: #c9d1d9;
 }
 
-.recent-review-item > span {
+.recent-icon {
   color: #79c0ff;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .recent-review-item p {
   margin: 0;
+  color: #8b949e;
+  font-size: 14px;
 }
 
+.recent-review-item strong,
 .recent-review-item b {
-  color: #79c0ff;
+  color: #c9d1d9;
+  font-weight: 500;
 }
 
 .recent-review-item small {
-  color: #8b949e;
+  display: block;
+  margin-top: 4px;
+  color: #6e7681;
+  font-size: 13px;
 }
 
 .recent-area {
