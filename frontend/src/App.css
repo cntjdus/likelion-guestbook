@@ -144,6 +144,21 @@ button {
   margin-top: 18px;
 }
 
+.contribution-settings {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.contribution-settings svg {
+  width: 14px;
+  height: 14px;
+  color: #8b949e;
+}
+
 .graph-left {
   width: 820px;
 }
@@ -481,7 +496,6 @@ button {
 }
 
 /* Responsive */
-
 @media (max-width: 1000px) {
   .main-layout {
     grid-template-columns: 1fr;

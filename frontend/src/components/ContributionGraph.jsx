@@ -1,3 +1,5 @@
+import { ChevronDown } from "lucide-react";
+
 function ContributionGraph({ commits }) {
   const cells = Array.from({ length: 52 * 7 });
 
@@ -16,7 +18,10 @@ function ContributionGraph({ commits }) {
     <section className="contribution-card">
       <div className="contribution-header">
         <h3>{commits.length} contributions in the last year</h3>
-        <span>Contribution settings⌄</span>
+        <span className="contribution-settings">
+            Contribution settings
+            <ChevronDown size={14} />
+        </span>
       </div>
 
       <div className="contribution-body">
