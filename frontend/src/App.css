@@ -274,7 +274,7 @@ button {
 
 .commit-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .new-commit-btn {
@@ -289,7 +289,6 @@ button {
 .expanded .new-commit-btn {
   font-size: 18px;
   padding: 12px 22px;
-  border: 3px solid white;
 }
 
 .commit-form {
@@ -306,9 +305,16 @@ button {
 }
 
 .commit-form label span {
-  display: block;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 17px;
   font-size: 17px;
+}
+
+.commit-form label span svg {
+  color: #8b949e;
+  flex-shrink: 0;
 }
 
 .commit-form input,
@@ -319,7 +325,7 @@ button {
   border: 1px solid #30363d;
   border-radius: 10px;
   padding: 14px 16px;
-  font-size: 20px;
+  font-size: 17px;
   outline: none;
 }
 

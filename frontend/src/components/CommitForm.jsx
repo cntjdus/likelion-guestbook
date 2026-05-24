@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MessageSquare, User, FileText, Lock } from "lucide-react";
 
 function CommitForm({ onSubmitCommit }) {
   const [message, setMessage] = useState("");
@@ -32,7 +33,10 @@ function CommitForm({ onSubmitCommit }) {
   return (
     <form className="commit-form" onSubmit={handleSubmit}>
       <label>
-        <span>▢ Commit Message</span>
+        <span>
+            <MessageSquare size={18} />
+            Commit Message
+        </span>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -42,7 +46,10 @@ function CommitForm({ onSubmitCommit }) {
       </label>
 
       <label>
-        <span>♙ Author</span>
+        <span>
+            <User size={18} />
+            Author
+        </span>
         <input
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
@@ -51,7 +58,10 @@ function CommitForm({ onSubmitCommit }) {
       </label>
 
       <label>
-        <span>⑂ Description</span>
+        <span>
+            <FileText size={18} />
+            Description
+        </span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -60,7 +70,10 @@ function CommitForm({ onSubmitCommit }) {
       </label>
 
       <label>
-        <span>▣ Password optional</span>
+        <span>
+            <Lock size={18} />
+            Password (optional)
+        </span>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CommitForm from "./CommitForm";
 import CommitDetail from "./CommitDetail";
-import { MessageSquare, GitBranch, RotateCcw } from "lucide-react";
+import { MessageSquare, GitBranch, RotateCcw, } from "lucide-react";
 
 function CommitHistory({
   commits,
@@ -16,12 +16,12 @@ function CommitHistory({
   const selectedCommit = commits.find((commit) => commit.id === selectedCommitId);
 
   const handleRevert = (commit) => {
-    const inputPassword = prompt("Revert password를 입력해주세요.");
+    const inputPassword = prompt("비밀번호를 입력해주세요.");
 
     if (inputPassword === null) return;
 
     if (!commit.password) {
-      alert("이 커밋은 비밀번호가 설정되어 있지 않아 삭제할 수 없습니다.");
+      alert("이 commit은 비밀번호가 설정되어 있지 않아, 삭제할 수 없습니다.");
       return;
     }
 
@@ -30,7 +30,7 @@ function CommitHistory({
       return;
     }
 
-    const confirmDelete = confirm("정말 이 commit을 revert 하시겠습니까?");
+    const confirmDelete = confirm("정말 이 commit을 삭제하시겠습니까?");
 
     if (confirmDelete) {
       onDeleteCommit(commit.id);
