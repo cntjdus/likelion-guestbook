@@ -26,7 +26,6 @@ button {
 }
 
 /* Header */
-/* Header */
 
 .header {
   border-bottom: 1px solid #30363d;
@@ -378,24 +377,6 @@ button {
 
 .empty-commit p {
   margin: 0;
-}
-
-.commit-list {
-  margin-top: 20px;
-}
-
-.commit-item {
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 12px;
-}
-
-.commit-item span {
-  display: block;
-  color: #8b949e;
-  margin-top: 4px;
 }
 
 .commit-item p {
