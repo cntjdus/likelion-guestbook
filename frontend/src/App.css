@@ -539,8 +539,20 @@ button {
   font-size: 24px;
 }
 
-.green-dot {
-  color: #6db65b;
+.grass-cell.level1 {
+  background: #0e4429;
+}
+
+.grass-cell.level2 {
+  background: #006d32;
+}
+
+.grass-cell.level3 {
+  background: #26a641;
+}
+
+.grass-cell.level4 {
+  background: #39d353;
 }
 
 .close-btn {

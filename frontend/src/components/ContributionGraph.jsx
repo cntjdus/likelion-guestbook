@@ -1,6 +1,17 @@
 function ContributionGraph({ commits }) {
   const cells = Array.from({ length: 52 * 7 });
 
+  const todayCommitCount = commits.length;
+  const todayIndex = 0;
+
+  const getLevel = (count) => {
+    if (count === 0) return "";
+    if (count === 1) return "level1";
+    if (count <= 3) return "level2";
+    if (count <= 6) return "level3";
+    return "level4";
+  };
+
   return (
     <section className="contribution-card">
       <div className="contribution-header">
@@ -29,7 +40,9 @@ function ContributionGraph({ commits }) {
               {cells.map((_, index) => (
                 <div
                   key={index}
-                  className={`grass-cell ${index < commits.length ? "filled" : ""}`}
+                  className={`grass-cell ${
+                    index === todayIndex ? getLevel(todayCommitCount) : ""
+                  }`}
                 />
               ))}
             </div>
