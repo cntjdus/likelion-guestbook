@@ -1,12 +1,13 @@
+import {BookOpen} from "lucide-react";
+
 function Header() {
   return (
     <header className="header">
       <div className="repo-title">
-        <span className="repo-icon">▥</span>
-        <span className="repo-owner">visitor-log</span>
-        <span className="repo-slash">/</span>
-        <strong>guestbook-repository</strong>
-        <span className="public-badge">Public</span>
+        <BookOpen size={24} />
+        <span className="owner">visitor-log</span>
+        <span className="slash"> / </span>
+        <span className="repo-name">guestbook-repository</span>
       </div>
 
       <div className="repo-actions">

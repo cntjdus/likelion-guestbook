@@ -26,10 +26,11 @@ button {
 }
 
 /* Header */
+/* Header */
 
 .header {
   border-bottom: 1px solid #30363d;
-  padding-bottom: 14px;
+  padding-bottom: 16px;
   margin-bottom: 18px;
 }
 
@@ -37,7 +38,17 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
+
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.repo-title svg {
+  width: 22px;
+  height: 22px;
+  color: #8b949e;
+  stroke-width: 1.8;
+  margin-right: 2px;
 }
 
 .repo-icon,
@@ -47,20 +58,38 @@ button {
 
 .repo-owner {
   color: #58a6ff;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.repo-slash {
+  color: #8b949e;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0 4px;
+}
+
+.repo-name {
+  color: #f0f6fc;
+  font-size: 22px;
+  font-weight: 400;
 }
 
 .public-badge {
+  margin-left: 8px;
   border: 1px solid #30363d;
   border-radius: 999px;
-  font-size: 12px;
   padding: 2px 7px;
-  color: #c9d1d9;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8b949e;
+  line-height: 1.2;
 }
 
 .repo-actions {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .repo-actions button {
@@ -69,6 +98,11 @@ button {
   border: 1px solid #30363d;
   border-radius: 6px;
   padding: 5px 12px;
+  font-size: 14px;
+}
+
+.repo-actions button:hover {
+  background: #30363d;
 }
 
 /* Common Card */
