@@ -659,3 +659,31 @@ button {
 .recent-review-item small {
   color: #8b949e;
 }
+
+.recent-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-layout.detail-mode {
+  grid-template-columns: 1fr 370px;
+  align-items: start;
+}
+
+.main-layout.detail-mode .commit-detail {
+  grid-column: 1 / -1;
+}
+
+.main-layout.detail-mode .side-area {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.main-layout.detail-mode .recent-area {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.main-layout:not(.detail-mode) .recent-area {
+  grid-column: 2 / 3;
+}

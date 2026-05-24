@@ -49,9 +49,12 @@ function App() {
         />
 
         <aside className="side-area">
-          <StatsCard commits={commits} />
-          <Achievements count={commits.length} />
-          <RecentReviews reviews={recentReviews} />
+         <StatsCard commits={commits} />
+         <Achievements count={commits.length} />
+        </aside>
+
+        <aside className="recent-area">
+         <RecentReviews reviews={recentReviews} />
         </aside>
       </main>
     </div>
