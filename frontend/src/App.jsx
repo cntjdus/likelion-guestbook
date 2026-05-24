@@ -26,6 +26,12 @@ function App() {
     );
   };
 
+  const deleteCommit = (commitId) => {
+    setCommits(
+      commits.filter((commit) => commit.id !== commitId)
+    );
+  };
+
   const recentReviews = commits
     .flatMap((commit) =>
       commit.reviews.map((review) => ({
@@ -45,6 +51,7 @@ function App() {
           commits={commits}
           onAddCommit={addCommit}
           onAddReview={addReview}
+          onDeleteCommit={deleteCommit}
           onDetailChange={setIsDetailOpen}
         />
 

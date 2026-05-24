@@ -2,17 +2,48 @@ import { useState } from "react";
 import CommitForm from "./CommitForm";
 import CommitDetail from "./CommitDetail";
 
-function CommitHistory({ commits, onAddCommit, onAddReview }) {
+function CommitHistory({
+  commits,
+  onAddCommit,
+  onAddReview,
+  onDeleteCommit,
+  onDetailChange,
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCommit, setSelectedCommit] = useState(null);
+  const [selectedCommitId, setSelectedCommitId] = useState(null);
+
+  const selectedCommit = commits.find((commit) => commit.id === selectedCommitId);
+
+  const handleRevert = (commit) => {
+    const inputPassword = prompt("Revert password를 입력해주세요.");
+
+    if (inputPassword === null) return;
+
+    if (!commit.password) {
+      alert("이 커밋은 비밀번호가 설정되어 있지 않아 삭제할 수 없습니다.");
+      return;
+    }
+
+    if (inputPassword !== commit.password) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    const confirmDelete = confirm("정말 이 commit을 revert 하시겠습니까?");
+
+    if (confirmDelete) {
+      onDeleteCommit(commit.id);
+    }
+  };
 
   if (selectedCommit) {
-    const currentCommit = commits.find((commit) => commit.id === selectedCommit.id);
-
     return (
       <CommitDetail
-        commit={currentCommit}
-        onClose={() => setSelectedCommit(null)}
+        commit={selectedCommit}
+        onClose={() => {
+          setSelectedCommitId(null);
+          onDetailChange(false);
+        }}
         onAddReview={onAddReview}
       />
     );
@@ -45,22 +76,42 @@ function CommitHistory({ commits, onAddCommit, onAddReview }) {
       ) : (
         <div className="commit-list">
           {commits.map((commit) => (
-            <article
-              className="commit-item clickable"
-              key={commit.id}
-              onClick={() => setSelectedCommit(commit)}
-            >
-              <div>
-                <strong>{commit.message}</strong>
-                <p>{commit.description}</p>
-                <span>
-                  {commit.author} committed less than a minute ago
-                </span>
+            <article className="commit-item github-commit-card" key={commit.id}>
+              <div className="commit-left">
+                <span className="commit-branch-icon">⌁</span>
+
+                <div>
+                  <strong className="commit-message">{commit.message}</strong>
+                  <p className="commit-description">{commit.description}</p>
+
+                  <div className="commit-meta">
+                    <strong>{commit.author}</strong>
+                    <span>
+                      {" "}
+                      committed {commit.createdAt || "less than a minute ago"}
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div className="review-count">
-                💬 {commit.reviews.length}
-              </div>
+              <button
+                className="revert-btn"
+                type="button"
+                onClick={() => handleRevert(commit)}
+              >
+                ↻ Revert
+              </button>
+
+              <button
+                className="comment-count-btn"
+                type="button"
+                onClick={() => {
+                  setSelectedCommitId(commit.id);
+                  onDetailChange(true);
+                }}
+              >
+                ▢ {commit.reviews.length}
+              </button>
             </article>
           ))}
         </div>
