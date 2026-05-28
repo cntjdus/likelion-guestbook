@@ -31,6 +31,18 @@ const apiRequest = async (path, options = {}) => {
   return data;
 };
 
+const normalizeReview = (review) => ({
+  ...review,
+  createdAt: review.created_at,
+  updatedAt: review.updated_at,
+});
+
+const normalizeCommit = (commit) => ({
+  ...commit,
+  createdAt: commit.created_at,
+  updatedAt: commit.updated_at,
+  reviews: (commit.reviews || []).map(normalizeReview),
+});
 
 function App() {
   const [commits, setCommits] = useState([]);
@@ -40,7 +52,7 @@ function App() {
     const fetchCommits = async () => {
       try {
         const data = await apiRequest("/commits/");
-        setCommits(data);
+        setCommits(data.map(normalizeCommit));
       } catch (error) {
         alert(error.message);
       }
@@ -57,7 +69,7 @@ function App() {
       });
 
       setCommits((prevCommits) => [
-        { ...newCommit, reviews: [] },
+        normalizeCommit({ ...newCommit, reviews: [] }),
         ...prevCommits,
       ]);
     } catch (error) {
@@ -75,7 +87,7 @@ function App() {
       setCommits((prevCommits) =>
         prevCommits.map((commit) =>
           commit.id === commitId
-            ? { ...commit, reviews: [newReview, ...commit.reviews] }
+            ? { ...commit, reviews: [normalizeReview(newReview), ...commit.reviews] }
             : commit
         )
       );
