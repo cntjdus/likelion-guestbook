@@ -35,25 +35,34 @@ function App() {
   }, []);
 
   const addCommit = async (commit) => {
-    try {
-      await fetch(`${BASE_URL}/api/commits/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: commit.message,
-          author: commit.author,
-          description: commit.description,
-          password: commit.password,
-        }),
-      });
+  try {
+    console.log("보낼 commit:", commit);
 
-      getCommits();
-    } catch (error) {
-      console.error("커밋 작성 실패:", error);
+    const res = await fetch(`${BASE_URL}/api/commits/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: commit.message,
+        author: commit.author,
+        description: commit.description,
+        password: commit.password,
+      }),
+    });
+
+    const result = await res.json();
+    console.log("POST 응답:", result);
+
+    if (!res.ok) {
+      throw new Error(`POST 실패: ${res.status}`);
     }
-  };
+
+    getCommits();
+  } catch (error) {
+    console.error("커밋 작성 실패:", error);
+  }
+};
 
   const addReview = async (commitId, review) => {
     try {
