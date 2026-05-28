@@ -20,8 +20,7 @@ function CommitForm({ onSubmitCommit }) {
       message,
       author,
       description,
-      password,
-      createdAt: new Date().toLocaleDateString(),
+      password
     });
 
     setMessage("");
