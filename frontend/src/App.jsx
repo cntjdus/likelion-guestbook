@@ -35,28 +35,34 @@ function App() {
   }, []);
 
   const addCommit = async (commit) => {
-  try {
-    console.log("보낼 commit:", commit);
+  console.log("프론트에서 받은 commit:", commit);
 
-    const res = await fetch(`${BASE_URL}/api/commits/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: commit.message,
-        author: commit.author,
-        description: commit.description,
-        password: commit.password,
-      }),
-    });
+  const payload = {
+    message: commit.message,
+    author: commit.author,
+    description: commit.description,
+    password: commit.password,
+  };
 
-    const result = await res.json();
-    console.log("POST 응답:", result);
+  console.log("백엔드로 보낼 payload:", payload);
 
-    if (!res.ok) {
-      throw new Error(`POST 실패: ${res.status}`);
-    }
+  const res = await fetch(`${BASE_URL}/api/commits/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  console.log("POST status:", res.status);
+
+  const result = await res.text();
+  console.log("POST response:", result);
+
+  if (res.ok) {
+    getCommits();
+  }
+};
 
     getCommits();
   } catch (error) {
