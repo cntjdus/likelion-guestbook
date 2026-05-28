@@ -57,8 +57,9 @@ Guestbook Repository는 사용자의 기록을 GitHub의 활동 방식으로 재
 - CSS
 
 ### Backend
-- Node.js
-- Express
+- Django
+- DRF
+- AWS EC2
 
 ### Database
 - MySQL
