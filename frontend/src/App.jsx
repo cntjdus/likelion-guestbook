@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -8,28 +8,95 @@ import StatsCard from "./components/StatsCard";
 import Achievements from "./components/Achievements";
 import RecentReviews from "./components/RecentReviews";
 
+const API_BASE_URL = "http://43.200.76.144:8000";
+
+const apiRequest = async (path, options = {}) => {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...options,
+  });
+
+  if (response.status === 204) {
+    return null;
+  }
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "요청에 실패했습니다.");
+  }
+
+  return data;
+};
+
+
 function App() {
   const [commits, setCommits] = useState([]);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  const addCommit = (commit) => {
-    setCommits([{ ...commit, reviews: [] }, ...commits]);
+  useEffect(() => {
+    const fetchCommits = async () => {
+      try {
+        const data = await apiRequest("/commits/");
+        setCommits(data);
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    fetchCommits();
+  }, []);
+
+  const addCommit = async (commit) => {
+    try {
+      const newCommit = await apiRequest("/commits/", {
+        method: "POST",
+        body: JSON.stringify(commit),
+      });
+
+      setCommits((prevCommits) => [
+        { ...newCommit, reviews: [] },
+        ...prevCommits,
+      ]);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const addReview = (commitId, review) => {
-    setCommits(
-      commits.map((commit) =>
-        commit.id === commitId
-          ? { ...commit, reviews: [review, ...commit.reviews] }
-          : commit
-      )
-    );
+  const addReview = async (commitId, review) => {
+    try {
+      const newReview = await apiRequest(`/commits/${commitId}/reviews/`, {
+        method: "POST",
+        body: JSON.stringify(review),
+      });
+
+      setCommits((prevCommits) =>
+        prevCommits.map((commit) =>
+          commit.id === commitId
+            ? { ...commit, reviews: [newReview, ...commit.reviews] }
+            : commit
+        )
+      );
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const deleteCommit = (commitId) => {
-    setCommits(
-      commits.filter((commit) => commit.id !== commitId)
-    );
+  const deleteCommit = async (commitId, password) => {
+    try {
+      await apiRequest(`/commits/${commitId}/`, {
+        method: "DELETE",
+        body: JSON.stringify({ password }),
+      });
+
+      setCommits((prevCommits) =>
+        prevCommits.filter((commit) => commit.id !== commitId)
+      );
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const recentReviews = commits
