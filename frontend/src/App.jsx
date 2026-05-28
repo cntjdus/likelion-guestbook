@@ -8,7 +8,7 @@ import StatsCard from "./components/StatsCard";
 import Achievements from "./components/Achievements";
 import RecentReviews from "./components/RecentReviews";
 
-const API_BASE_URL = "http://43.200.76.144:8000";
+const API_BASE_URL = "http://43.200.76.144:8000/api";
 
 const apiRequest = async (path, options = {}) => {
   const response = await fetch(`${API_BASE_URL}${path}`, {
