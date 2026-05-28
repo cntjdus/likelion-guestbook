@@ -16,11 +16,9 @@ function CommitDetail({ commit, onClose, onAddReview }) {
     }
 
     onAddReview(commit.id, {
-      id: Date.now(),
       reviewer,
       type,
       comment,
-      createdAt: "less than a minute ago",
     });
 
     setReviewer("");
