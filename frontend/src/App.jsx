@@ -14,7 +14,6 @@ function App() {
   const [commits, setCommits] = useState([]);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  // 커밋 목록 조회
   const getCommits = async () => {
     try {
       const res = await fetch(`${BASE_URL}/api/commits/`);
@@ -24,9 +23,14 @@ function App() {
       }
 
       const data = await res.json();
+      console.log("GET data:", data);
+
+      const commitList = Array.isArray(data)
+        ? data
+        : data.results || [];
 
       setCommits(
-        data.map((commit) => ({
+        commitList.map((commit) => ({
           ...commit,
           reviews: commit.reviews || [],
         }))
@@ -36,12 +40,10 @@ function App() {
     }
   };
 
-  // 처음 로딩 시 목록 불러오기
   useEffect(() => {
     getCommits();
   }, []);
 
-  // 커밋 작성
   const addCommit = async (commit) => {
     try {
       console.log("프론트에서 받은 commit:", commit);
@@ -63,35 +65,31 @@ function App() {
         body: JSON.stringify(payload),
       });
 
-      console.log("POST status:", res.status);
-
       const result = await res.text();
+
+      console.log("POST status:", res.status);
       console.log("POST response:", result);
 
       if (!res.ok) {
         throw new Error(`POST 실패: ${res.status}`);
       }
 
-      // 작성 후 다시 목록 조회
       await getCommits();
+      console.log("다시 조회 완료");
     } catch (error) {
       console.error("커밋 작성 실패:", error);
     }
   };
 
-  // 리뷰 추가
   const addReview = async (commitId, review) => {
     try {
-      const res = await fetch(
-        `${BASE_URL}/api/commits/${commitId}/reviews/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(review),
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/commits/${commitId}/reviews/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+      });
 
       if (!res.ok) {
         throw new Error(`리뷰 작성 실패: ${res.status}`);
@@ -103,15 +101,11 @@ function App() {
     }
   };
 
-  // 커밋 삭제
   const deleteCommit = async (commitId) => {
     try {
-      const res = await fetch(
-        `${BASE_URL}/api/commits/${commitId}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/commits/${commitId}/`, {
+        method: "DELETE",
+      });
 
       if (!res.ok) {
         throw new Error(`DELETE 실패: ${res.status}`);
@@ -123,7 +117,6 @@ function App() {
     }
   };
 
-  // 최근 리뷰
   const recentReviews = commits
     .flatMap((commit) =>
       commit.reviews.map((review) => ({
@@ -136,7 +129,6 @@ function App() {
   return (
     <div className="app">
       <Header />
-
       <ContributionGraph commits={commits} />
 
       <main className={`main-layout ${isDetailOpen ? "detail-mode" : ""}`}>
@@ -159,9 +151,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>
-          Designed by Seoyeon Chu / Developed by Seoyeon Chu, Yeeun Cha
-        </p>
+        <p>Designed by Seoyeon Chu / Developed by Seoyeon Chu, Yeeun Cha</p>
         <p>Likelion CAU 14th. All Rights Reserved.</p>
       </footer>
     </div>
