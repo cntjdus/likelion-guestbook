@@ -20,11 +20,6 @@ function CommitHistory({
 
     if (inputPassword === null) return;
 
-    if (!commit.password) {
-      alert("이 commit은 비밀번호가 설정되어 있지 않아, 삭제할 수 없습니다.");
-      return;
-    }
-
     if (inputPassword !== commit.password) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
