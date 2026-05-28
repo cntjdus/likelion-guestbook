@@ -16,11 +16,10 @@ function CommitForm({ onSubmitCommit }) {
     }
 
     onSubmitCommit({
-      id: Date.now(),
       message,
       author,
       description,
-      password
+      password,
     });
 
     setMessage("");
