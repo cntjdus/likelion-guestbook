@@ -13,7 +13,7 @@ class Commit(BaseModel):
     message = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
     description = models.TextField(blank=True)
-    password = models.CharField(max_length=30)
+    password = models.CharField(max_length=30, blank=True, default="")
 
     def __str__(self):
         return self.message
