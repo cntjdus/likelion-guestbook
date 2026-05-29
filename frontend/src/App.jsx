@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -7,29 +7,96 @@ import CommitHistory from "./components/CommitHistory";
 import StatsCard from "./components/StatsCard";
 import Achievements from "./components/Achievements";
 import RecentReviews from "./components/RecentReviews";
+import {
+  fetchCommits,
+  createCommit,
+  createReview,
+  deleteCommit as deleteCommitApi,
+} from "./api";
+
+// 백엔드의 created_at(ISO 문자열)을 화면 표시용 문자열로 변환
+function formatDate(iso) {
+  if (!iso) return "";
+  return new Date(iso).toLocaleString();
+}
+
+// 서버 응답을 프론트엔드가 사용하는 형태로 정규화
+const normalizeReview = (review) => ({
+  ...review,
+  createdAt: formatDate(review.created_at),
+});
+
+const normalizeCommit = (commit) => ({
+  ...commit,
+  reviews: (commit.reviews || []).map(normalizeReview),
+  createdAt: formatDate(commit.created_at),
+});
 
 function App() {
   const [commits, setCommits] = useState([]);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  const addCommit = (commit) => {
-    setCommits([{ ...commit, reviews: [] }, ...commits]);
+  // 최초 렌더 시 커밋 목록을 서버에서 불러옴
+  useEffect(() => {
+    fetchCommits()
+      .then((data) => setCommits(data.map(normalizeCommit)))
+      .catch((err) => {
+        console.error(err);
+        alert("커밋 목록을 불러오지 못했습니다.");
+      });
+  }, []);
+
+  const addCommit = async (commit) => {
+    try {
+      const created = await createCommit({
+        message: commit.message,
+        author: commit.author,
+        description: commit.description,
+        password: commit.password,
+      });
+      setCommits((prev) => [
+        { ...normalizeCommit(created), reviews: [] },
+        ...prev,
+      ]);
+    } catch (err) {
+      console.error(err);
+      alert("커밋 작성에 실패했습니다.");
+    }
   };
 
-  const addReview = (commitId, review) => {
-    setCommits(
-      commits.map((commit) =>
-        commit.id === commitId
-          ? { ...commit, reviews: [review, ...commit.reviews] }
-          : commit
-      )
-    );
+  const addReview = async (commitId, review) => {
+    try {
+      const created = await createReview(commitId, {
+        reviewer: review.reviewer,
+        type: review.type,
+        comment: review.comment,
+      });
+      const normalized = normalizeReview(created);
+      setCommits((prev) =>
+        prev.map((commit) =>
+          commit.id === commitId
+            ? { ...commit, reviews: [normalized, ...commit.reviews] }
+            : commit
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      alert("리뷰 작성에 실패했습니다.");
+    }
   };
 
-  const deleteCommit = (commitId) => {
-    setCommits(
-      commits.filter((commit) => commit.id !== commitId)
-    );
+  const deleteCommit = async (commitId, password) => {
+    try {
+      await deleteCommitApi(commitId, password);
+      setCommits((prev) => prev.filter((commit) => commit.id !== commitId));
+    } catch (err) {
+      if (err.status === 400) {
+        alert(err.detail?.message || "비밀번호가 일치하지 않습니다.");
+      } else {
+        console.error(err);
+        alert("커밋 삭제에 실패했습니다.");
+      }
+    }
   };
 
   const recentReviews = commits

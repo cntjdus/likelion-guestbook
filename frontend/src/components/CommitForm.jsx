@@ -15,8 +15,8 @@ function CommitForm({ onSubmitCommit }) {
       return;
     }
 
+    // id와 생성 시각은 서버가 부여하므로 입력값만 전달
     onSubmitCommit({
-      id: Date.now(),
       message,
       author,
       description,
