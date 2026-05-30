@@ -9,8 +9,6 @@ import Achievements from "./components/Achievements";
 import RecentReviews from "./components/RecentReviews";
 
 const BASE_URL = "http://43.200.76.144:8000/api/commits/";
-// 로컬 테스트용이라면:
-// const BASE_URL = "http://43.200.76.144:8000/api/commits/";
 
 function App() {
   const [commits, setCommits] = useState([]);
@@ -33,26 +31,14 @@ function App() {
         }))
       );
     } catch (error) {
-      console.error(error);
-      alert("Failed to fetch");
+      console.error("getCommits 오류:", error);
+      alert("커밋 목록을 불러오지 못했습니다.");
     }
   };
 
-const getCommits = async () => {
-  console.log("getCommits 실행");
-
-  try {
-    const res = await fetch("http://43.200.76.144:8000/api/commits/");
-
-    console.log("응답:", res);
-
-    const data = await res.json();
-
-    console.log(data);
-  } catch (error) {
-    console.error("에러 발생", error);
-  }
-};
+  useEffect(() => {
+    getCommits();
+  }, []);
 
   const addCommit = async (commit) => {
     try {
@@ -70,12 +56,12 @@ const getCommits = async () => {
 
       const newCommit = await res.json();
 
-      setCommits([
+      setCommits((prevCommits) => [
         { ...newCommit, reviews: newCommit.reviews || [] },
-        ...commits,
+        ...prevCommits,
       ]);
     } catch (error) {
-      console.error(error);
+      console.error("addCommit 오류:", error);
       alert("커밋 작성에 실패했습니다.");
     }
   };
@@ -96,8 +82,8 @@ const getCommits = async () => {
 
       const newReview = await res.json();
 
-      setCommits(
-        commits.map((commit) =>
+      setCommits((prevCommits) =>
+        prevCommits.map((commit) =>
           commit.id === commitId
             ? {
                 ...commit,
@@ -107,7 +93,7 @@ const getCommits = async () => {
         )
       );
     } catch (error) {
-      console.error(error);
+      console.error("addReview 오류:", error);
       alert("리뷰 작성에 실패했습니다.");
     }
   };
@@ -126,9 +112,11 @@ const getCommits = async () => {
         throw new Error("커밋 삭제 실패");
       }
 
-      setCommits(commits.filter((commit) => commit.id !== commitId));
+      setCommits((prevCommits) =>
+        prevCommits.filter((commit) => commit.id !== commitId)
+      );
     } catch (error) {
-      console.error(error);
+      console.error("deleteCommit 오류:", error);
       alert("삭제에 실패했습니다. 비밀번호를 확인해주세요.");
     }
   };

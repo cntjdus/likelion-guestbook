@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { GitBranch, X, MessageSquare, Check, FileWarning, ChevronDown, } from "lucide-react";
+import {
+  GitBranch,
+  X,
+  MessageSquare,
+  Check,
+  FileWarning,
+  ChevronDown,
+} from "lucide-react";
 
 function CommitDetail({ commit, onClose, onAddReview }) {
   const [reviewer, setReviewer] = useState("");
@@ -7,7 +14,9 @@ function CommitDetail({ commit, onClose, onAddReview }) {
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [comment, setComment] = useState("");
 
-  const handleSubmit = (e) => {
+  const reviews = commit.reviews || [];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!reviewer.trim() || !comment.trim()) {
@@ -15,12 +24,10 @@ function CommitDetail({ commit, onClose, onAddReview }) {
       return;
     }
 
-    onAddReview(commit.id, {
-      id: Date.now(),
+    await onAddReview(commit.id, {
       reviewer,
       type,
       comment,
-      createdAt: "less than a minute ago",
     });
 
     setReviewer("");
@@ -42,12 +49,12 @@ function CommitDetail({ commit, onClose, onAddReview }) {
       </div>
 
       <div className="detail-commit-box">
-        <div className="avatar">{commit.author[0]?.toUpperCase()}</div>
+        <div className="avatar">{commit.author?.[0]?.toUpperCase()}</div>
 
         <div>
           <p>
             <strong>{commit.author}</strong>
-            <span> committed on May 24, 2026</span>
+            <span> committed</span>
           </p>
           <p>{commit.description}</p>
         </div>
@@ -55,19 +62,19 @@ function CommitDetail({ commit, onClose, onAddReview }) {
 
       <h3 className="reviews-title">
         <MessageSquare size={20} />
-        Reviews ({commit.reviews.length})
+        Reviews ({reviews.length})
       </h3>
 
-      {commit.reviews.length === 0 ? (
+      {reviews.length === 0 ? (
         <p className="no-review">
           No reviews yet. Be the first to review this commit!
         </p>
       ) : (
         <div className="review-list">
-          {commit.reviews.map((review) => (
+          {reviews.map((review) => (
             <div className="review-card" key={review.id}>
               <div className="avatar small">
-                {review.reviewer[0]?.toUpperCase()}
+                {review.reviewer?.[0]?.toUpperCase()}
               </div>
 
               <div className="review-content">
@@ -78,8 +85,6 @@ function CommitDetail({ commit, onClose, onAddReview }) {
                     {getReviewIcon(review.type)}
                     {getReviewLabel(review.type)}
                   </span>
-
-                  <span className="review-date">May 24, 7:18 PM</span>
                 </div>
 
                 <p>{review.comment}</p>
@@ -103,7 +108,6 @@ function CommitDetail({ commit, onClose, onAddReview }) {
 
         <label>
           Review Type
-
           <div className="review-type-dropdown">
             <button
               type="button"

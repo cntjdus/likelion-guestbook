@@ -1,4 +1,11 @@
-import { GitCommitHorizontal, Users, Star, Trophy, Crown, Award, } from "lucide-react";
+import {
+  GitCommitHorizontal,
+  Users,
+  Star,
+  Trophy,
+  Crown,
+  Award,
+} from "lucide-react";
 
 const achievementList = [
   {
@@ -33,7 +40,7 @@ const achievementList = [
   },
 ];
 
-function Achievements({ count }) {
+function Achievements({ count = 0 }) {
   return (
     <section className="side-card achievement-card">
       <h2>

@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 
-function RecentReviews({ reviews }) {
+function RecentReviews({ reviews = [] }) {
   return (
     <section className="side-card recent-review-card">
       <h2>
@@ -20,7 +20,10 @@ function RecentReviews({ reviews }) {
                 <strong>{review.reviewer}</strong> commented on{" "}
                 <b>"{review.commitMessage}"</b>
               </p>
-              <small>{review.createdAt}</small>
+
+              <small>
+                {review.createdAt || "less than a minute ago"}
+              </small>
             </div>
           </div>
         ))

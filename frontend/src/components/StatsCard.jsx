@@ -1,6 +1,12 @@
-import { GitBranch, Users, Flame, TrendingUp, Award,} from "lucide-react";
+import {
+  GitBranch,
+  Users,
+  Flame,
+  TrendingUp,
+  Award,
+} from "lucide-react";
 
-function StatsCard({ commits }) {
+function StatsCard({ commits = [] }) {
   const count = commits.length;
 
   return (
@@ -10,7 +16,7 @@ function StatsCard({ commits }) {
       <div className="stat-row">
         <span>
           <GitBranch size={14} />
-            Total Commits
+          Total Commits
         </span>
         <strong>{count}</strong>
       </div>
@@ -18,7 +24,7 @@ function StatsCard({ commits }) {
       <div className="stat-row">
         <span>
           <Users size={14} />
-            Contributors
+          Contributors
         </span>
         <strong>{count === 0 ? 0 : 1}</strong>
       </div>
@@ -26,7 +32,7 @@ function StatsCard({ commits }) {
       <div className="stat-row">
         <span>
           <Flame size={14} />
-            Current Streak
+          Current Streak
         </span>
         <strong>{count > 0 ? "1 days" : "0 days"}</strong>
       </div>
@@ -34,7 +40,7 @@ function StatsCard({ commits }) {
       <div className="stat-row">
         <span>
           <TrendingUp size={14} />
-            Longest Streak
+          Longest Streak
         </span>
         <strong>{count > 0 ? "1 days" : "0 days"}</strong>
       </div>
@@ -42,7 +48,7 @@ function StatsCard({ commits }) {
       <div className="stat-row">
         <span>
           <Award size={14} />
-            Contribution Score
+          Contribution Score
         </span>
         <strong>{count}</strong>
       </div>

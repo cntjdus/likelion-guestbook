@@ -7,7 +7,7 @@ function CommitForm({ onSubmitCommit }) {
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!message.trim() || !author.trim()) {
@@ -15,12 +15,11 @@ function CommitForm({ onSubmitCommit }) {
       return;
     }
 
-    onSubmitCommit({
-      id: Date.now(),
+    await onSubmitCommit({
       message,
       author,
       description,
-      password
+      password,
     });
 
     setMessage("");
@@ -33,21 +32,23 @@ function CommitForm({ onSubmitCommit }) {
     <form className="commit-form" onSubmit={handleSubmit}>
       <label>
         <span>
-            <MessageSquare size={18} />
-            Commit Message
+          <MessageSquare size={18} />
+          Commit Message
         </span>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="feat: your awesome contribution"
         />
-        <small>Use conventional commits: feat, fix, docs, style, refactor, etc.</small>
+        <small>
+          Use conventional commits: feat, fix, docs, style, refactor, etc.
+        </small>
       </label>
 
       <label>
         <span>
-            <User size={18} />
-            Author
+          <User size={18} />
+          Author
         </span>
         <input
           value={author}
@@ -58,8 +59,8 @@ function CommitForm({ onSubmitCommit }) {
 
       <label>
         <span>
-            <FileText size={18} />
-            Description
+          <FileText size={18} />
+          Description
         </span>
         <textarea
           value={description}
@@ -70,8 +71,8 @@ function CommitForm({ onSubmitCommit }) {
 
       <label>
         <span>
-            <Lock size={18} />
-            Password (optional)
+          <Lock size={18} />
+          Password (optional)
         </span>
         <input
           value={password}

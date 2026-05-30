@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-function ContributionGraph({ commits }) {
+function ContributionGraph({ commits = [] }) {
   const cells = Array.from({ length: 52 * 7 });
 
   const todayCommitCount = commits.length;
@@ -19,19 +19,30 @@ function ContributionGraph({ commits }) {
       <div className="contribution-header">
         <h3>{commits.length} contributions in the last year</h3>
         <span className="contribution-settings">
-            Contribution settings
-            <ChevronDown size={14} />
+          Contribution settings
+          <ChevronDown size={14} />
         </span>
       </div>
 
       <div className="contribution-body">
         <div className="graph-left">
           <div className="months">
-            {["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"].map(
-              (month) => (
-                <span key={month}>{month}</span>
-              )
-            )}
+            {[
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+            ].map((month) => (
+              <span key={month}>{month}</span>
+            ))}
           </div>
 
           <div className="graph-row">
