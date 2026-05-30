@@ -20,15 +20,11 @@ function CommitHistory({
 
     if (inputPassword === null) return;
 
-    if (inputPassword !== commit.password) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
     const confirmDelete = confirm("정말 이 commit을 삭제하시겠습니까?");
 
     if (confirmDelete) {
-      onDeleteCommit(commit.id);
+      // 비밀번호 검증은 서버에서 수행
+      onDeleteCommit(commit.id, inputPassword);
     }
   };
 

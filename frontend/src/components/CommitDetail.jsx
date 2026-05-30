@@ -15,12 +15,11 @@ function CommitDetail({ commit, onClose, onAddReview }) {
       return;
     }
 
+    // id와 생성 시각은 서버가 부여하므로 입력값만 전달
     onAddReview(commit.id, {
-      id: Date.now(),
       reviewer,
       type,
       comment,
-      createdAt: "less than a minute ago",
     });
 
     setReviewer("");
